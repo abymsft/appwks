@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace client.Data
 {
-    public class WeatherForecast
+    public class WeatherForecast 
     {
         [JsonPropertyName("date")]
         public DateTime Date { get; set; }
