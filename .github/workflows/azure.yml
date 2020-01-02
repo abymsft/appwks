@@ -12,6 +12,8 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'src/client/**'
 
 env:
   AZURE_WEBAPP_NAME: madsdappwks    # set this to your application's name
