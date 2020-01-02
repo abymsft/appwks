@@ -32,7 +32,7 @@ jobs:
       run: |
         # Build and test the project, then
         # deploy to Azure Web App.
-        dotnet build --configuration Release        
+        dotnet build --configuration Release ${{env.AZURE_WEBAPP_PACKAGE_PATH}}       
     - name: 'Deploy to Azure WebApp'
       uses: azure/webapps-deploy@v1
       with:
