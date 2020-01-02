@@ -13,7 +13,7 @@ namespace server.Controllers
     {
         private static readonly string[] Summaries = new[]
         {
-            "Frysende", "Køligt", "Mildt"
+            "Frysende", "Køligt", "Mildt", "Varmt"
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
