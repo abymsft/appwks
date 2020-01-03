@@ -2,6 +2,8 @@
 
 @using client.Data
 @inject WeatherForecastService ForecastService
+@using System.Text.Json
+@inject IHttpClientFactory ClientFactory
 
 <h1>Weather forecast</h1>
 
@@ -37,10 +39,24 @@ else
 }
 
 @code {
-    private WeatherForecast[] forecasts;
+    private IEnumerable<WeatherForecast> forecasts;
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+        var client = ClientFactory.CreateClient();
+        var request = new HttpRequestMessage(HttpMethod.Get, "https://madsdappbackend.azurewebsites.net/weatherforecast");
+        var response = await client.SendAsync(request);
+
+        if (response.IsSuccessStatusCode)
+        {
+            using var responseStream = await response.Content.ReadAsStreamAsync();
+            forecasts = await JsonSerializer.DeserializeAsync
+                <IEnumerable<WeatherForecast>>(responseStream);
+        }
+        else
+        {
+            forecasts = Array.Empty<WeatherForecast>();
+        }
+
     }
 }
